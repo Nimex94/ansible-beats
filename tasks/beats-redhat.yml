@@ -8,9 +8,15 @@
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "6"
 
+- name: Import elasticsearch gpg key from url
+  rpm_key:
+    state: present
+    key: https://packages.elastic.co/GPG-KEY-elasticsearch
+  when: use_repository | bool
+
 - name: Redhat - add beats repository
   template:
-    src: beats.repo.j2
+    src: beats.redhat.repo.j2
     dest: /etc/yum.repos.d/beats.repo
   when: use_repository | bool
 
@@ -26,9 +32,10 @@
 
 - name: "RedHat - Ensure {{ beat }} is installed"
   yum:
-    name: "{{ beat }}{{ beats_version | bool | ternary('-{{ beats_version }}', '') }}"
+    name: "{{ beat }}{{ beats_version | d(False) | ternary('-' + beats_version |d(''), '') }}"
     state: present
     update_cache: yes
+    allow_downgrade: yes
   when: use_repository | bool
   notify: "restart {{ beat }}"
 
