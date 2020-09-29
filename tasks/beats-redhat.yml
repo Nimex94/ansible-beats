@@ -11,7 +11,7 @@
 - name: Import elasticsearch gpg key from url
   rpm_key:
     state: present
-    key: https://packages.elastic.co/GPG-KEY-elasticsearch
+    key: "{{ repo_key }}"
   when: use_repository | bool
 
 - name: Redhat - add beats repository

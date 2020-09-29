@@ -9,9 +9,20 @@
   include: beats-redhat.yml
   when: ansible_os_family == 'RedHat'
 
-#Configuration file for beats
+# Configuration file for beats
 - name: Beats configuration
   include: beats-config.yml
+
+# Create folder for spool file
+- name: Create folder for spool file
+  file:
+    path: "{{ path_to_spool_file | regex_replace('spool.dat$', '') }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0700'
+  become: yes
+  when: use_spool_file
 
 # Make sure the service is started, and restart if necessary
 - name: Start beats service
