@@ -2,5 +2,5 @@
 
 default_file: "/etc/sysconfig"
 init_script: "/etc/init.d"
-repo_url: "https://artifacts.elastic.co/packages/{{ beats_beats_version.split('.')[0] | lower }}.x/yum"
+repo_url: "https://artifacts.elastic.co/packages/{{ beats_version.split('.')[0] | lower }}.x/yum"
 repo_key: https://packages.elastic.co/GPG-KEY-elasticsearch

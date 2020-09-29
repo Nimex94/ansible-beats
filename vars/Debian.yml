@@ -2,5 +2,5 @@
 
 default_file: "/etc/default"
 init_script: "/etc/init.d"
-repo_url: "https://artifacts.elastic.co/packages/{{ beats_beats_version.split('.')[0] | lower }}.x/apt"
+repo_url: "https://artifacts.elastic.co/packages/{{ beats_version.split('.')[0] | lower }}.x/apt"
 repo_key: https://packages.elastic.co/GPG-KEY-elasticsearch
